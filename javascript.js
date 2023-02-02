@@ -1,9 +1,16 @@
 console.info("Javascript loaded")
-const roundsInt = 5
 //you could also make variables for Rock, Paper, and Scissors strings to keep them consistent. idk maybe do that later? yeah seems worth idk
 const rockStr = "Rock"
 const paperStr = "Paper"
 const scissorsStr = "Scissors"
+
+const rpsButtons = document.querySelectorAll("#buttons_con button")
+
+rpsButtons.forEach(button => button.addEventListener('click', buttonClicked))
+
+function buttonClicked(e) {
+    console.log(e)
+}
 
 function getComputerChoice() {
     //randomly select rock, paper or scissors
@@ -63,7 +70,10 @@ function playRound(playerSelection, computerSelection) {
 function playGame() {
     for (let i = 0; i < roundsInt; i++) {
         let playerChoice = prompt("Rock, Paper, Scissors: ").toLowerCase()
-       console.log(playRound(playerChoice, getComputerChoice()))
+        console.log(playRound(playerChoice, getComputerChoice()))
     }
 }
-playGame();
+
+function displayResult() {
+    //put the result script in here and call it from the switches
+}

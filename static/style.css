@@ -1,0 +1,47 @@
+:root{
+  --black: #1f1f1f;
+}
+#page_con{
+  height: 100vh;
+  width: 100vw;
+/*   padding-right: 42px; */
+  display: flex;
+}
+h1{
+  writing-mode: vertical-lr;
+  font-size: 2em;
+  padding: 10px 5px;
+  transform: rotate(180deg);
+  background: var(--black);
+  color: white;
+}
+#buttons_con{
+  flex: 1;
+  display: flex;
+}
+button{
+  flex: 1;
+  border: none;
+  background: no-repeat center bottom/70%;
+}
+button:hover{
+  background: no-repeat center bottom/70% url(images/hand_rock.png), url(images/rock.svg);
+}
+#rock{
+  background-image: url(images/hand_rock.png);
+}
+#rock:hover{
+  background-image: url(images/hand_rock.png), url(images/rock.svg);
+}
+#paper{
+   background-image: url(images/hand_paper.png);
+}
+#paper:hover{
+   background-image: url(images/hand_paper.png), url(images/paper.svg);
+}
+#scissors{
+   background-image: url(images/hand_scissors.png);
+}
+#scissors:hover{
+  background-image: url(images/hand_scissors.png), url(images/scissors.svg);
+}
