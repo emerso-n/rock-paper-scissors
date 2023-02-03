@@ -1,12 +1,15 @@
 :root{
   --black: #1f1f1f;
+  --againhovercolor: #aa0606;
 }
+
 #page_con{
   height: 100vh;
   width: 100vw;
-/*   padding-right: 42px; */
   display: flex;
 }
+
+
 h1{
   writing-mode: vertical-lr;
   font-size: 2em;
@@ -15,17 +18,20 @@ h1{
   background: var(--black);
   color: white;
 }
-#buttons_con{
+
+
+#buttons_con, #results_con{
   flex: 1;
   display: flex;
 }
-button{
+.choice_btn, .choice_div{
   flex: 1;
   border: none;
   background: no-repeat center bottom/70%;
 }
-button:hover{
+.choice_btn:hover{
   background: no-repeat center bottom/70% url(images/hand_rock.png), url(images/rock.svg);
+  cursor: pointer;
 }
 #rock{
   background-image: url(images/hand_rock.png);
@@ -44,4 +50,41 @@ button:hover{
 }
 #scissors:hover{
   background-image: url(images/hand_scissors.png), url(images/scissors.svg);
+}
+
+
+#results_div{
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  flex: .6;
+}
+#player-choice{
+  background-image: url(images/hand_rock.png);
+  margin-left: 5%;
+}
+#computer-choice{
+  margin-right: 5%;
+  background-image: url(images/hand_scissors.png);
+  transform: rotate(180deg);
+}
+#result-text{
+  grid-row: 3;
+  margin: auto;
+  font-size: 5rem;
+  white-space: nowrap;
+}
+#results_div button{
+  grid-row: 4;
+  border: none;
+  background: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+}
+#results_div button:hover{
+  color: var(--againhovercolor);
+  cursor: pointer;
+}
+
+.hide{
+  display: none !important;
 }

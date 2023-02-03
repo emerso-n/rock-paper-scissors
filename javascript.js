@@ -1,79 +1,56 @@
 console.info("Javascript loaded")
 //you could also make variables for Rock, Paper, and Scissors strings to keep them consistent. idk maybe do that later? yeah seems worth idk
-const rockStr = "Rock"
-const paperStr = "Paper"
-const scissorsStr = "Scissors"
+const rock = "rock"
+const paper = "paper"
+const scissors = "scissors"
 
-const rpsButtons = document.querySelectorAll("#buttons_con button")
+const Outcomes = { win: "YOU WIN", loss: "YOU LOSE", tie: "TIE" }
 
-rpsButtons.forEach(button => button.addEventListener('click', buttonClicked))
+const playerChoiceDiv = document.querySelector("#player-choice")
+const computerChoiceDiv = document.querySelector("#computer-choice")
+const resultsTextDiv = document.querySelector("#result-text")
 
-function buttonClicked(e) {
-    console.log(e)
+const choiceView = document.querySelector('#buttons_con')
+const resultsView = document.querySelector('#results_con')
+
+const choiceBtns = choiceView.querySelectorAll("button")
+const againBtn = document.querySelector("#results_div button")
+
+choiceBtns.forEach(button => button.addEventListener('click', displayResult))
+
+againBtn.addEventListener('click', switchView);
+
+function displayResult(e) {
+    let playerChoice = e.target.id;
+    let computerChoice = getComputerChoice();
+    let outcome = getOutcome(playerChoice, computerChoice)
+
+    playerChoiceDiv.style.backgroundImage = `url(static/images/hand_${playerChoice}.png)`;
+    computerChoiceDiv.style.backgroundImage = `url(static/images/hand_${computerChoice}.png)`;
+    resultsTextDiv.textContent = outcome;
+    switchView()
 }
 
+const rpsArray = [rock, paper, scissors]
 function getComputerChoice() {
     //randomly select rock, paper or scissors
-    switch (Math.floor(Math.random() * 3)) {
-        case 0:
-            return rockStr;
-        case 1:
-            return paperStr;
-        case 2:
-            return scissorsStr;
-        default:
-            console.error("Something very wrong with getComputerChoice()")
-            break;
-    }
+    return rpsArray[Math.floor(Math.random() * 3)]
 }
 
-function playRound(playerSelection, computerSelection) {
-    //there has to be a better way to do this right? right?
+function getOutcome(playerSelection, computerSelection) {
     if (playerSelection == computerSelection) {
-        return `Tie! ${computerSelection} vs ${computerSelection}`
+        return Outcomes.tie
     }
-    if (playerSelection == "rock") {
-        switch (computerSelection) {
-            case paperStr:
-                return "You Lose! Paper beats Rock"
-            case scissorsStr:
-                return "You Win! Rock beats Scissors"
-            default:
-                console.error("Something very wrong with playRound()")
-                break
-        }
+    else if (playerSelection == rock && computerSelection == scissors || playerSelection == paper && computerSelection == rock || playerSelection == scissors && computerSelection == paper) {
+        return Outcomes.win
     }
-    if (playerSelection == "paper") {
-        switch (computerSelection) {
-            case rockStr:
-                return "You Win! Paper beats Rock"
-            case scissorsStr:
-                return "You Lose! Scissors beats Paper"
-            default:
-                console.error("Something very wrong with playRound()")
-                break
-        }
-    }
-    if (playerSelection == "scissors") {
-        switch (computerSelection) {
-            case paperStr:
-                return "You Win! Scissors beats Paper"
-            case rockStr:
-                return "You Lose! Rock beats Scissors"
-            default:
-                console.error("Something very wrong with playRound()")
-                break
-        }
+    else {
+        return Outcomes.loss
     }
 }
 
-function playGame() {
-    for (let i = 0; i < roundsInt; i++) {
-        let playerChoice = prompt("Rock, Paper, Scissors: ").toLowerCase()
-        console.log(playRound(playerChoice, getComputerChoice()))
-    }
-}
 
-function displayResult() {
-    //put the result script in here and call it from the switches
+function switchView() {
+    choiceView.classList.toggle('hide');
+    resultsView.classList.toggle('hide');
 }
