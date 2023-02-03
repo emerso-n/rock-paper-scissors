@@ -17,19 +17,22 @@
   </head>
   <body>
     <div id="page_con">
-      <h1>ROCK, PAPER, SCISSORS</h1>
+      <div id="sidebar">
+        <h1>ROCK, PAPER, SCISSORS</h1>
+        <div id="score">0 - 0</div>
+      </div>
       <div id="buttons_con">
         <button id="rock" class="choice_btn"></button>
         <button id="paper" class="choice_btn"></button>
         <button id="scissors" class="choice_btn"></button>
       </div>
       <div id="results_con" class="hide">
-        <div id="player-choice" class="choice_div"></div>
+        <div id="player-choice" class="choice_div hand-animate-in"></div>
         <div id="results_div">
           <div id="result-text">YOU WIN</div>
           <button>Again?</button>
         </div>
-        <div id="computer-choice" class="choice_div"></div>
+        <div id="computer-choice" class="choice_div hand-animate-in"></div>
       </div>
     </div>
   </body>

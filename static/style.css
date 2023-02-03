@@ -1,6 +1,6 @@
 :root{
   --black: #1f1f1f;
-  --againhovercolor: #aa0606;
+  --againhovercolor: #ba1414;
 }
 
 #page_con{
@@ -10,13 +10,15 @@
 }
 
 
-h1{
+#sidebar{
   writing-mode: vertical-lr;
   font-size: 2em;
   padding: 10px 5px;
   transform: rotate(180deg);
   background: var(--black);
   color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 
@@ -27,10 +29,11 @@ h1{
 .choice_btn, .choice_div{
   flex: 1;
   border: none;
-  background: no-repeat center bottom/70%;
+  background: no-repeat center 120%/70%;
+ 
 }
 .choice_btn:hover{
-  background: no-repeat center bottom/70% url(images/hand_rock.png), url(images/rock.svg);
+  background: no-repeat center 120%/71% url(images/hand_rock.png), url(images/rock.svg);
   cursor: pointer;
 }
 #rock{
@@ -51,7 +54,22 @@ h1{
 #scissors:hover{
   background-image: url(images/hand_scissors.png), url(images/scissors.svg);
 }
+.hand-animate-out, .hand-animate-in{
+  animation-name: hand-out;
+  animation-duration: .8s;
+}
+.hand-animate-in{
+  animation-direction: reverse;
+}
 
+@keyframes hand-out{
+  30%{
+    background-position-y: 100%, 0;
+  }
+  100%{
+    background-position-y: 100vh, 0;
+  }
+}
 
 #results_div{
   display: grid;
