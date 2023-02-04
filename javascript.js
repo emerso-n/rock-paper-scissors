@@ -6,7 +6,7 @@ const paper = "paper"
 const scissors = "scissors"
 
 const Outcomes = { win: "YOU WIN", loss: "YOU LOSE", tie: "TIE" }
-const RoundType = { bo3: "Bo3", bo5: "Bo5", endless: "&infin;"}
+const RoundType = { bo3: "Bo3", bo5: "Bo5", endless: "&infin;" }
 let currentRoundType
 
 let playerScore = 0
@@ -41,7 +41,8 @@ function selectRoundsType(e) {
     switchGameViews()
 }
 
-function switchMenuGameViews(){
+function switchMenuGameViews() {
+    Sleep.cancel()
     resultsDiv.classList.toggle('hide');
     menuDiv.classList.toggle('hide');
 
@@ -49,7 +50,7 @@ function switchMenuGameViews(){
     computerChoiceDiv.classList.remove("hand-animate-out");
     playerChoiceDiv.classList.add("hand-animate-in");
     computerChoiceDiv.classList.add("hand-animate-in");
-    
+
     playerChoiceDiv.classList.toggle('margin-left');
     computerChoiceDiv.classList.toggle('margin-right');
 }
@@ -91,13 +92,15 @@ function getOutcome(playerSelection, computerSelection) {
 }
 
 
-let abortController = new AbortController();
-let signal = abortController.signal;
-
-const sleep = async (milliseconds) => {
-    await new Promise(resolve => {
-        return setTimeout(resolve, milliseconds)
-    });
+const Sleep = {
+    async sleep(milliseconds) {
+        await new Promise(resolve => {
+            return this.timeoutID = setTimeout(resolve, milliseconds)
+        });
+    },
+    cancel() {
+        clearTimeout(this.timeoutID);
+    }
 };
 
 const animateMenu = async () => {
@@ -114,7 +117,7 @@ const animateMenu = async () => {
     computerChoiceDiv.classList.add("hand-animate-in");
 
     //wait
-    await sleep(menuAnimDelay);
+    await Sleep.sleep(menuAnimDelay);
 
     //trigger animate out
     playerChoiceDiv.classList.remove("hand-animate-in");
