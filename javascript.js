@@ -1,13 +1,19 @@
 console.info("Javascript loaded")
+const menuAnimDelay = 3000
 
 const rock = "rock"
 const paper = "paper"
 const scissors = "scissors"
 
 const Outcomes = { win: "YOU WIN", loss: "YOU LOSE", tie: "TIE" }
+const RoundType = { bo3: "Bo3", bo5: "Bo5", endless: "&infin;"}
+let currentRoundType
 
 let playerScore = 0
 let computerScore = 0
+
+const menuDiv = document.querySelector("#menu_div_div")
+const resultsDiv = document.querySelector("#results_div")
 
 const playerChoiceDiv = document.querySelector("#player-choice")
 const computerChoiceDiv = document.querySelector("#computer-choice")
@@ -17,15 +23,35 @@ const scoreDiv = document.querySelector("#score")
 const choiceView = document.querySelector('#buttons_con')
 const resultsView = document.querySelector('#results_con')
 
+const roundSelectBtns = menuDiv.querySelectorAll("button")
 const choiceBtns = choiceView.querySelectorAll("button")
 const againBtn = document.querySelector("#results_div button")
 
-choiceBtns.forEach(button => { button.addEventListener('click', handAnimate); button.addEventListener('animationend', displayResult) })
+roundSelectBtns.forEach(button => button.addEventListener('click', selectRoundsType))
 
-againBtn.addEventListener('click', switchView);
+choiceBtns.forEach(button => { button.addEventListener('click', (e) => e.target.classList.add("hand-animate-out")); button.addEventListener('animationend', displayResult) })
 
-function handAnimate(e) {
-    e.target.classList.add("hand-animate-out")
+againBtn.addEventListener('click', switchGameViews);
+
+function selectRoundsType(e) {
+    if (e.target.id == "bo3_btn") currentRoundType = RoundType.bo3
+    else if (e.target.id == "bo5_btn") currentRoundType = RoundType.bo5
+    else currentRoundType = RoundType.endless
+    switchMenuGameViews()
+    switchGameViews()
+}
+
+function switchMenuGameViews(){
+    resultsDiv.classList.toggle('hide');
+    menuDiv.classList.toggle('hide');
+
+    playerChoiceDiv.classList.remove("hand-animate-out");
+    computerChoiceDiv.classList.remove("hand-animate-out");
+    playerChoiceDiv.classList.add("hand-animate-in");
+    computerChoiceDiv.classList.add("hand-animate-in");
+    
+    playerChoiceDiv.classList.toggle('margin-left');
+    computerChoiceDiv.classList.toggle('margin-right');
 }
 
 function displayResult(e) {
@@ -41,7 +67,7 @@ function displayResult(e) {
 
     resultsTextDiv.textContent = outcome;
     scoreDiv.textContent = `${playerScore} - ${computerScore}`;
-    switchView();
+    switchGameViews();
 }
 
 const rpsArray = [rock, paper, scissors]
@@ -65,7 +91,46 @@ function getOutcome(playerSelection, computerSelection) {
 }
 
 
-function switchView() {
+let abortController = new AbortController();
+let signal = abortController.signal;
+
+const sleep = async (milliseconds) => {
+    await new Promise(resolve => {
+        return setTimeout(resolve, milliseconds)
+    });
+};
+
+const animateMenu = async () => {
+    //change image
+    playerChoiceDiv.style.backgroundImage = `url(static/images/hand_${getComputerChoice()}.png)`;
+    computerChoiceDiv.style.backgroundImage = `url(static/images/hand_${getComputerChoice()}.png)`;
+
+    //animate in
+    playerChoiceDiv.classList.remove("hand-animate-out");
+    computerChoiceDiv.classList.remove("hand-animate-out");
+    playerChoiceDiv.offsetWidth; //this is a hacky solution to get the animation to retrigger when you remove and readd the class
+    computerChoiceDiv.offsetWidth;
+    playerChoiceDiv.classList.add("hand-animate-in");
+    computerChoiceDiv.classList.add("hand-animate-in");
+
+    //wait
+    await sleep(menuAnimDelay);
+
+    //trigger animate out
+    playerChoiceDiv.classList.remove("hand-animate-in");
+    computerChoiceDiv.classList.remove("hand-animate-in");
+    playerChoiceDiv.offsetWidth;
+    computerChoiceDiv.offsetWidth;
+    playerChoiceDiv.classList.add("hand-animate-out");
+    computerChoiceDiv.classList.add("hand-animate-out");
+}
+playerChoiceDiv.addEventListener('animationend', (e) => {
+    e.target.classList.contains("hand-animate-out") == true && menuDiv.classList.contains("hide") == false ? animateMenu() : null
+});
+animateMenu()
+
+
+function switchGameViews() {
     choiceView.classList.toggle('hide');
     resultsView.classList.toggle('hide');
 }

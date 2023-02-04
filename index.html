@@ -18,20 +18,35 @@
   <body>
     <div id="page_con">
       <div id="sidebar">
-        <h1>ROCK, PAPER, SCISSORS</h1>
-        <div id="score">0 - 0</div>
+        <h2>ROCK, PAPER, SCISSORS</h2>
+        <div id="score"></div>
       </div>
-      <div id="buttons_con">
+
+      <div id="buttons_con" class="hide">
         <button id="rock" class="choice_btn"></button>
         <button id="paper" class="choice_btn"></button>
         <button id="scissors" class="choice_btn"></button>
       </div>
-      <div id="results_con" class="hide">
+
+      <div id="results_con">
         <div id="player-choice" class="choice_div hand-animate-in"></div>
-        <div id="results_div">
-          <div id="result-text">YOU WIN</div>
+
+        <div id="menu_div_div">
+          <div id="menu_div">
+            <h1>ROCK, PAPER, SCISSORS</h1>
+            <div id="round-buttons_con">
+              <button id="bo3_btn">Best of 3</button>
+              <button id="bo5_btn">Best of 5</button>
+              <button id="endless_btn">Endless</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="results_div" class="hide">
+          <div id="result-text"></div>
           <button>Again?</button>
         </div>
+
         <div id="computer-choice" class="choice_div hand-animate-in"></div>
       </div>
     </div>
