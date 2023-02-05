@@ -37,14 +37,20 @@
             <div id="round-buttons_con">
               <button id="bo3_btn">Best of 3</button>
               <button id="bo5_btn">Best of 5</button>
-              <button id="endless_btn">Endless</button>
+              <button id="custom_btn">Custom</button>
+            </div>
+            <div id="custom-input_div" class="hide">
+              <label for="custom-input">Rounds:</label>
+              <input type="number" id="custom-input" min="1" step="2" value="7" onfocusout="numLimiter(this.value)">
+              <button id="custom-start_btn">Start</button>
+              <button id="back_btn">Back</button>
             </div>
           </div>
         </div>
 
         <div id="results_div" class="hide">
           <div id="result-text"></div>
-          <button>Again?</button>
+          <button>Again</button>
         </div>
 
         <div id="computer-choice" class="choice_div hand-animate-in"></div>
