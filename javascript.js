@@ -78,17 +78,17 @@ async function selectRoundsType(e) {
     }
     if (e.target.id == "bo3_btn") {
         currentRoundType = RoundType.bo3
-        roundSelectBtns.forEach(button => button.id != e.target.id ? button.style.visibility = "hidden" : button.style.color = "var(--againhovercolor)")
+        // roundSelectBtns.forEach(button => button.id != e.target.id ? button.style.visibility = "hidden" : button.style.color = "var(--againhovercolor)")
     }
     else if (e.target.id == "bo5_btn") {
         currentRoundType = RoundType.bo5
-        roundSelectBtns.forEach(button => button.id != e.target.id ? button.style.visibility = "hidden" : button.style.color = "var(--againhovercolor)")
+        // roundSelectBtns.forEach(button => button.id != e.target.id ? button.style.visibility = "hidden" : button.style.color = "var(--againhovercolor)")
     }
     else { //custom start btn
         currentRoundType = { text: `Bo${customNumInput.value}`, rounds: customNumInput.value }
-        backBtn.style.visibility = "hidden";
-        document.querySelector("label").style.visibility = "hidden";
-        customStartBtn.style.color = "var(--againhovercolor)";
+        // backBtn.style.visibility = "hidden";
+        // document.querySelector("label").style.visibility = "hidden";
+        // customStartBtn.style.color = "var(--againhovercolor)";
     }
     //wait for hand animation to finish then:
     // await Sleep.sleep(1000);
